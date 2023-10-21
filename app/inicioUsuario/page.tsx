@@ -1,14 +1,14 @@
 import React from 'react'
+import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { TiThMenu } from 'react-icons/ti';
-import { BiSolidCircle } from 'react-icons/bi';
+import { BiSolidCircle, BiLogOut, BiSolidCameraPlus } from 'react-icons/bi';
 import { BsFileEarmarkArrowDownFill, BsFire, BsGraphUp } from 'react-icons/bs';
+import { LiaMoneyBillWaveSolid } from 'react-icons/lia';
 import { FcShop } from 'react-icons/fc';
 import Image from 'next/image'
 import { Separator } from "@/components/ui/separator"
 import { Progress } from "@/components/ui/progress"
-
-
 
 import {
     Sheet,
@@ -19,7 +19,20 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
   
+  import { Button } from "@/components/ui/button"
+  import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+  import { Input } from "@/components/ui/input"
+  import { Label } from "@/components/ui/label"
 
+  
 export default function inicioUsuario() {
   return (
     <div className='bg-bg h-screen'>
@@ -37,8 +50,18 @@ export default function inicioUsuario() {
                 </SheetTrigger>
                 <SheetContent>
                     <SheetHeader>
-                    <SheetTitle className='text-red-500'>VCFAM</SheetTitle>
-                    <SheetDescription>
+                    <SheetTitle className='text-red-500'><p>VCFAM</p></SheetTitle>
+                    <SheetDescription className='pt-10'>
+                        <div>
+                            <button className='flex items-center gap-2'>
+                                <BiLogOut className="text-4xl text-black"></BiLogOut>
+                                <p className='text-red-600 text-xl'>Cerrar Sesión</p>
+                            </button>
+                        </div>
+                        <div className='flex items-center gap-2 mt-4'>
+                            <LiaMoneyBillWaveSolid className="text-4xl text-black"></LiaMoneyBillWaveSolid>
+                            <p className='text-red-600 text-xl'>Enviar Pago</p>
+                        </div>
                     </SheetDescription>
                     </SheetHeader>
                 </SheetContent>
@@ -75,27 +98,72 @@ export default function inicioUsuario() {
         <div className='bg-white m-6 rounded-md p-2'>
             <div className='flex items-center flex-row justify-between'>
                 <p>Control</p>
-                <p className='underline underline-offset-8'>Actualizar</p>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="outline">Actualizar</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                        <DialogTitle className='text-red-600'>Actualiza Tus Datos Corporales</DialogTitle>
+                        <DialogDescription>
+                            Actualizar tus datos constantemente beneficiara en el control de tu progreso.
+                        </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-right">
+                            Peso
+                            </Label>
+                            <Input
+                            id="name"
+                            defaultValue="100"
+                            className="col-span-3 bg-green-200 border border-green-600"
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="username" className="text-right">
+                            IMC
+                            </Label>
+                            <Input
+                            id="username"
+                            defaultValue="36%"
+                            className="col-span-3 bg-orange-200 border border-orange-600"
+                            />
+                        </div>
+                        </div>
+                        <DialogFooter>
+                        <Button type="submit">Actualizar</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+
             </div>
             <div className='grid grid-cols-2 gap-2 pt-4 place-content-center'>
                 <div className='bg-red-300 rounded-md p-2 w-36 h-36'>
-                    <BsFire className="text-6xl text-red-600"></BsFire>
-                    <p className='text-2xl font-bold'>3500cal</p>
+                    <p className='text-2xl font-bold text-red-600 pb-2'>Calorias</p>
+                    <p className='text-4xl font-bold'>3500</p>
+                    <BsFire className="text-4xl text-red-600"></BsFire>
                 </div>
                 <div className='bg-green-300 rounded-md p-2 w-36 h-36'>
-                    <p className='text-green-800 text-2xl font-bold'>Peso</p>
+                    <p className='text-green-800 text-2xl font-bold pb-2'>Peso</p>
                     <p className='text-xl text-black font-bold'>100kg</p>
-                    <BsGraphUp className="text-4xl"></BsGraphUp>
                 </div>
                 <div className='bg-orange-300 rounded-md p-2 w-36 h-36'>
-                    <p className='text-orange-600 text-2xl font-bold'>IMC</p>
+                    <p className='text-orange-600 text-2xl font-bold pb-2'>IMC</p>
                     <p className='text-black text-xl'>35%</p>
                     <Progress value={35} />
                 </div>
-                <div className='bg-yellow-300 rounded-md p-2 flex flex-col items-center w-36 h-36'>
-                    <p className='font-bold'>Lista de Compras</p>
+                <div className='bg-yellow-200 rounded-md p-2 flex flex-col items-center w-36 h-36'>
+                    <p className='font-bold pb-2 text-yellow-800'>Lista de Compras</p>
                     <FcShop className="text-6xl"></FcShop>
                 </div>
+            </div>
+        </div>
+
+        <div className='bg-white m-6 rounded-md p-2'>
+            <div className='flex items-center flex-row justify-between'>
+                <p className='text-xl'>Enviar Fotos Corporales</p>
+                <BiSolidCameraPlus className="text-red-600 text-4xl"></BiSolidCameraPlus>
             </div>
         </div>
     </div>

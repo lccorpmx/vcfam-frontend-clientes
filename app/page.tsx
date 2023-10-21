@@ -1,7 +1,9 @@
+"use client"
 import Image from 'next/image'
 import { AiFillDownCircle } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-
+import {signIn, useSession} from 'next-auth/react'
+import { Providers } from './Providers'
 import {
   Accordion,
   AccordionContent,
@@ -9,8 +11,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-
 export default function Home() {
+
+
+const {data:session} = useSession()
+console.log(session)
   return (
     <main className="min-h-screen bg-bg pt-20">
       <header>
@@ -35,11 +40,11 @@ export default function Home() {
     <p className='text-black text-2xl'>Inicia Sesion con</p>
     <AiFillDownCircle className="text-red-500"></AiFillDownCircle>
   </div>
-
-  <div className='p-4 bg-white rounded-full mb-4'>
-      <FcGoogle className="text-4xl"></FcGoogle>
-    </div>
-
+  <button onClick={() => signIn()}>
+    <div className='p-4 bg-white rounded-full mb-4'>
+        <FcGoogle className="text-4xl"></FcGoogle>
+      </div>
+  </button>
     <div className='w-80'>
       <div>
           <Accordion type="single" collapsible>
