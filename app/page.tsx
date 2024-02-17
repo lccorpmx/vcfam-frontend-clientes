@@ -1,21 +1,22 @@
 "use client"
 import Image from 'next/image'
-import { AiFillDownCircle } from 'react-icons/ai';
-import { FcGoogle } from 'react-icons/fc';
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import {signIn, useSession} from 'next-auth/react'
-import { Providers } from './Providers'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import Link from 'next/link';
 
 export default function Home() {
 
 
-const {data:session} = useSession()
-console.log(session)
+  const { data: session, status } = useSession()
+  console.log(status)
+  console.log(session)
+
   return (
     <main className="min-h-screen bg-bg pt-20">
       <header>
@@ -35,16 +36,14 @@ console.log(session)
   <p className='text-black text-2xl'>Bienvenidx a</p>
   <h1 className='text-red-500 font-bold text-6xl'>VCFAM</h1>
 
+  <Link href="/auth/login">
   <div className='flex items-center pt-4 gap-2 pb-4'>
-    <AiFillDownCircle className="text-red-500"></AiFillDownCircle>
-    <p className='text-black text-2xl'>Inicia Sesion con</p>
-    <AiFillDownCircle className="text-red-500"></AiFillDownCircle>
+  <IoIosArrowForward className="text-red-500 text-xl"></IoIosArrowForward>
+    <p className='text-black text-2xl'>Unete al Equipo</p>
+    <IoIosArrowBack className="text-red-500 text-xl"></IoIosArrowBack>
   </div>
-  <button onClick={() => signIn()}>
-    <div className='p-4 bg-white rounded-full mb-4'>
-        <FcGoogle className="text-4xl"></FcGoogle>
-      </div>
-  </button>
+  </Link>
+
     <div className='w-80'>
       <div>
           <Accordion type="single" collapsible>

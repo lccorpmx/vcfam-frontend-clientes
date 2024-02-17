@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Asesorado{
+  id Int @id @default(autoincrement())
+  role String @default("asesorado")
+  email String @unique
+  username String @unique
+  password String 
+  nombre String 
+  edad Int
+  estado String @default("nuevo")
+  revision String @default("pendiente")
+  numero Int 
+  pesoInicial Int
+  estatura Int
+  IMC Int
+  alimentosAlergicos String
+  alimentosNoTolerados String
+  alimentacionComun String
+  lifestyle String
+  objetivo String
+  lesiones String
+  enfermedades String
+  tiempoEjercicioDisponible String
+  tiempoEntrenando String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ Pagos Pagos[]
+  Pesos Pesos[]
+  Planes Planes[]
+  Retroalimentaciones Retroalimentaciones[]
+ NotificacionesAdmin NotificacionesAdmin[]
+ NotificacionesAsesorado NotificacionesAsesorado[]
+}
+
+model Pagos{
+    id Int @id @default(autoincrement())
+    userId Int
+    urlImage String 
+    createdAt DateTime @default(now())
+    asesorado Asesorado @relation(fields: [userId], references: [id])
+}
+
+model Pesos{
+  id Int @id @default(autoincrement())
+  userId Int
+  peso Int
+  asesorado Asesorado @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Planes{
+  id Int @id @default(autoincrement())
+  userId Int
+  plan String
+  createdAt DateTime @default(now())
+  asesorado Asesorado @relation(fields: [userId], references: [id])
+}
+
+model Retroalimentaciones{
+  id Int @id @default(autoincrement())
+  userId Int
+  retroalimentacion String
+  updatedAt DateTime @updatedAt
+  asesorado Asesorado @relation(fields: [userId], references: [id])
+}
+
+model NotificacionesAdmin{
+  id Int @id @default(autoincrement())
+  userId Int
+  notificacion String
+  updatedAt DateTime @updatedAt
+  asesorado Asesorado @relation(fields: [userId], references: [id])
+}
+
+model NotificacionesAsesorado{
+  id Int @id @default(autoincrement())
+  userId Int
+  notificacion String
+  updatedAt DateTime @updatedAt
+  asesorado Asesorado @relation(fields: [userId], references: [id])
+}
